@@ -1,8 +1,9 @@
 # About
 
 Welcome to my forum app! 
-Create a user and then contribute to existing topics 
-or create a new topic to start a new discussion!
+
+Create a user and then contribute to existing topics within communities
+or create a new topic (and/or community!) to start a new discussion!
 
 # Techno
 
