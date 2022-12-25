@@ -10,7 +10,7 @@ const PostSchema = new Schema({
 });
 
 PostSchema.virtual("url").get(function () {
-    return `/${this.community.name}/${this.title}/${this._id}`;
+    return `/post/${this._id}`;
   });
 
 module.exports = mongoose.model("Post", PostSchema);

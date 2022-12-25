@@ -7,7 +7,7 @@ const CommunitySchema = new Schema({
 });
 
 CommunitySchema.virtual("url").get(function () {
-    return `/${this.name}/${this._id}`;
+    return `/community/${this.name}/${this._id}`;
   });
 
 module.exports = mongoose.model("Community", CommunitySchema);
