@@ -9,6 +9,8 @@ or create a new topic (and/or community!) to start a new discussion!
 
 Built with Node.js and Express, with Pug a the template engine.
 
-The database used to store the users info and the actual forum's info is MongoDB.
+The database used to store the users and general forum info is MongoDB.
 
 It will be soon hosted on Railway and probably styled with Bootstrap.
+
+This app is also my first attempt at using Typescript!
