@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "allowJs": true,
+    },
+    "files": [
+      "./models/user.ts",
+      "./models/post.ts",
+      "./models/community.ts",
+      "./models/comment.ts",
+      "./controllers/commentController.ts",
+      "./controllers/postController.ts",
+      "./controllers/userController.ts",
+      "./controllers/communityController.ts",
+    ]
+}

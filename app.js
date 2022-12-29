@@ -1,5 +1,5 @@
 var createError = require('http-errors');
-var express = require('express');
+import * as express from 'express';
 var path = require('path');
 const session = require("express-session");
 const passport = require("passport");
