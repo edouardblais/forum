@@ -4,6 +4,9 @@ import * as passport from "passport";
 import { body, validationResult } from 'express-validator';
 import User from "../models/user";
 
+import * as async from 'async';
+import user from "../models/user";
+
 exports.log_register_get = (req: Request, res: Response) => {
   res.render("signup");
 };
@@ -12,7 +15,7 @@ exports.log_register_post = [
 
   body("username", "Username required").trim().isLength({ min: 1 }).escape(),
   
-  body('email', 'Email required').isEmail().normalizeEmail().escape(),
+  body('email', 'Email required').isEmail().normalizeEmail(),
   
   body('password', 'Password of minimally 8 characters required').trim().isLength({ min: 8 }).escape(),
 
@@ -36,23 +39,39 @@ exports.log_register_post = [
         const user = new User({
             username: req.body.username,
             password: hashedPassword,
+            email: req.body.email,
+            member_since: Date.now(),
+            admin: false,
         })
-        // Check if User with same username already exists.
-        User.findOne({ name: user.username}).exec((err: Error, found_user: string) => {
-          if (err) {
-            return next(err);
-          }
 
-          if (found_user) {
-            // username already exists.
-            res.render("signup", {errors: ['Username already exists']});
-          } else {
-            user.save((err: Error) => {
-              if (err) { 
+        async.parallel(
+          {
+            // Check if user with same email already exists
+            useremail(callback: any) {
+              User.findOne({email:user.email}).exec(callback);
+            },
+            // Check if User with same username already exists.
+            username(callback: any) {
+              User.findOne({ name: user.username}).exec(callback);
+            }
+          },
+            (err: Error, results: any ) => {
+              if (err) {
                 return next(err);
               }
-            res.redirect("/");
-          })};
+              if (results.useremail) {
+                // username already exists.
+                res.render("signup", {errors: ['A user with the same email already exists!']});
+              } else if (results.username) {
+                 // username already exists.
+                 res.render("signup", {errors: ['A user with the same username already exists!']});
+              } else {
+                user.save((err: Error) => {
+                  if (err) { 
+                    return next(err);
+                  }
+                res.redirect("/");
+              })};
         })
       })
     }
@@ -65,9 +84,14 @@ exports.log_signin_get = (req: Request, res: Response) => {
 
 exports.log_signin_post = (req: Request, res: Response) => {
     passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/"
-    });
+      failureRedirect: "/",
+    }), (req: Request, res:Response) => {
+      if (req.user) {
+        res.render("index", {user:req.user})
+      } else {
+        res.redirect('/')
+      }
+    }
 };
 
 exports.log_signout_get = (req: Request, res: Response, next: NextFunction) => {
