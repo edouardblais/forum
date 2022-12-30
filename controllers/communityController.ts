@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
+import user from "../models/user";
 
 exports.index = (req: Request, res: Response) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  res.render("index", {user: req.user});
 };
 
 exports.community_list = (req: Request, res: Response) => {

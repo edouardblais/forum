@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.index = function (req, res) {
-    res.send("NOT IMPLEMENTED: Site Home Page");
+    res.render("index", { user: req.user });
 };
 exports.community_list = function (req, res) {
     res.send("NOT IMPLEMENTED: communities list");

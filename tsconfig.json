@@ -13,5 +13,6 @@
       "./controllers/postController.ts",
       "./controllers/userController.ts",
       "./controllers/communityController.ts",
+      "./controllers/loggingController.ts"
     ]
 }

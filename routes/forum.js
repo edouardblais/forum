@@ -6,6 +6,19 @@ const user_controller = require("../controllers/userController");
 const community_controller = require("../controllers/communityController");
 const post_controller = require("../controllers/postController");
 const comment_controller = require("../controllers/commentController");
+const logging_controller = require("../controllers/loggingController");
+
+/// LOGGING ROUTES ///
+
+router.get("/register", logging_controller.log_register_get);
+
+router.post("/register", logging_controller.log_register_post);
+
+router.get("/signin", logging_controller.log_signin_get);
+
+router.post("/signin", logging_controller.log_signin_post);
+
+router.get("/signout", logging_controller.log_signout_get);
 
 /// COMMUNITIES ROUTES ///
 
