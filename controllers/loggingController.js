@@ -76,15 +76,9 @@ exports.log_signin_get = function (req, res) {
 };
 exports.log_signin_post = function (req, res) {
     passport.authenticate("local", {
-        failureRedirect: "/"
-    }), function (req, res) {
-        if (req.user) {
-            res.render("index", { user: req.user });
-        }
-        else {
-            res.redirect('/');
-        }
-    };
+        failureRedirect: "/",
+        successMessage: "/"
+    });
 };
 exports.log_signout_get = function (req, res, next) {
     req.logout(function (err) {

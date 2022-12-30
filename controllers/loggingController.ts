@@ -85,13 +85,8 @@ exports.log_signin_get = (req: Request, res: Response) => {
 exports.log_signin_post = (req: Request, res: Response) => {
     passport.authenticate("local", {
       failureRedirect: "/",
-    }), (req: Request, res:Response) => {
-      if (req.user) {
-        res.render("index", {user:req.user})
-      } else {
-        res.redirect('/')
-      }
-    }
+      successMessage: "/"
+    })
 };
 
 exports.log_signout_get = (req: Request, res: Response, next: NextFunction) => {
