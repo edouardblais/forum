@@ -10,8 +10,4 @@ const UserSchema = new Schema({
   admin: {type: Boolean, required: true, default: false }
 });
 
-UserSchema.virtual("url").get(function () {
-  return `/user/${this.username}/${this._id}`;
-});
-
 export default mongoose.model("User", UserSchema);

@@ -3,63 +3,22 @@ const router = express.Router();
 
 // Require controller modules.
 const user_controller = require("../controllers/userController");
-const community_controller = require("../controllers/communityController");
-const post_controller = require("../controllers/postController");
 const comment_controller = require("../controllers/commentController");
-const logging_controller = require("../controllers/loggingController");
-
-/// LOGGING ROUTES ///
-
-router.get("/register", logging_controller.log_register_get);
-
-router.post("/register", logging_controller.log_register_post);
-
-router.get("/signin", logging_controller.log_signin_get);
-
-router.post("/signin", logging_controller.log_signin_post);
-
-router.get("/signout", logging_controller.log_signout_get);
-
-/// COMMUNITIES ROUTES ///
 
 // home page
-router.get("/", community_controller.index);
-
-router.get("/community/create", community_controller.community_create_get);
-
-router.post("/community/create", community_controller.community_create_post);
-
-router.get("/community/:name/:id/delete", community_controller.community_delete_get);
-
-router.post("/community/:name/:id/delete", community_controller.community_delete_post);
-
-router.get("/community/:name/:id", community_controller.community_detail);
-
-router.get("/communities", community_controller.community_list);
+router.get("/", user_controller.index);
 
 /// USER ROUTES ///
 
-router.get("/user/create", user_controller.user_create_get);
+router.get("/register", user_controller.log_register_get);
 
-router.post("/user/create", user_controller.user_create_post);
+router.post("/register", user_controller.log_register_post);
 
-router.get("/user/:username/:id/delete", user_controller.user_delete_get);
+router.get("/signin", user_controller.log_signin_get);
 
-router.post("/user/:username/:id/delete", user_controller.user_delete_post);
+router.post("/signin", user_controller.log_signin_post);
 
-router.get("/user/:username/:id", user_controller.user_detail);
-
-/// POST ROUTES ///
-
-router.get("/post/create", post_controller.post_create_get);
-
-router.post("/post/create", post_controller.post_create_post);
-
-router.get("/post/:id/delete", post_controller.post_delete_get);
-
-router.post("/post/:id/delete", post_controller.post_delete_post);
-
-router.get("/post/:id", post_controller.post_detail);
+router.get("/signout", user_controller.log_signout_get);
 
 /// COMMENT ROUTES ///
 

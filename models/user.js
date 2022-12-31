@@ -9,7 +9,4 @@ var UserSchema = new Schema({
     member_since: { type: Date, "default": Date.now },
     admin: { type: Boolean, required: true, "default": false }
 });
-UserSchema.virtual("url").get(function () {
-    return "/user/".concat(this.username, "/").concat(this._id);
-});
 exports["default"] = mongoose.model("User", UserSchema);

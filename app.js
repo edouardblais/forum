@@ -3,11 +3,8 @@ const express = require("express");
 var path = require('path');
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var User = require('./models/user');
 
 require('dotenv').config();
 
