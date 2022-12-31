@@ -22,15 +22,9 @@ router.get("/signout", user_controller.log_signout_get);
 
 /// COMMENT ROUTES ///
 
-router.get("/comment/create", comment_controller.comment_create_get);
-
 router.post("/comment/create", comment_controller.comment_create_post);
 
-router.get("/comment/:id/delete", comment_controller.comment_delete_get);
-
 router.post("/comment/:id/delete", comment_controller.comment_delete_post);
-
-router.get("/comment/:id/update", comment_controller.comment_update_get);
 
 router.post("/comment/:id/update", comment_controller.comment_update_post);
 

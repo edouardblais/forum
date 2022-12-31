@@ -3,6 +3,7 @@ import * as bcrypt from "bcryptjs";
 import * as passport from "passport";
 import { body, validationResult } from 'express-validator';
 import User from "../models/user";
+import Comment from "../models/comment";
 
 import * as async from 'async';
 const LocalStrategy = require("passport-local").Strategy;
@@ -46,7 +47,20 @@ passport.deserializeUser(function(user:any, cb) {
 // home controller
 
 exports.index = (req: Request, res: Response) => {
-  res.render("index", {user: req.user});
+  Comment.find({})
+    .sort({date:1})
+    .populate("user")
+    .exec(function(err:Error, comments_list: string[], next: NextFunction) {
+      if (err) {
+        return next(err);
+      }
+      res.render("index", {
+        error: err,
+        comments: comments_list,
+        user: res.locals.currentUser,
+      });
+    }
+  )
 };
 
 // authentification controllers

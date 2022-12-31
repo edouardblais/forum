@@ -1,19 +1,31 @@
 "use strict";
 exports.__esModule = true;
-exports.comment_create_get = function (req, res) {
-    res.send("NOT IMPLEMENTED: comment create GET");
-};
-exports.comment_create_post = function (req, res) {
-    res.send("NOT IMPLEMENTED: comment create POST");
-};
-exports.comment_delete_get = function (req, res) {
-    res.send("NOT IMPLEMENTED: comment delete GET");
-};
+var express_validator_1 = require("express-validator");
+var comment_1 = require("../models/comment");
+exports.comment_create_post = [
+    (0, express_validator_1.body)("comment", "Please enter a comment").trim().isLength({ min: 1 }).escape(),
+    function (req, res, next) {
+        var errors = (0, express_validator_1.validationResult)(req);
+        if (!errors.isEmpty()) {
+            res.render("/", { errors: errors.array() });
+        }
+        else {
+            var comment = new comment_1["default"]({
+                comment: req.body.comment,
+                date: Date.now(),
+                user: res.locals.currentUser
+            });
+            comment.save(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect('/');
+            });
+        }
+    }
+];
 exports.comment_delete_post = function (req, res) {
     res.send("NOT IMPLEMENTED: comment delete POST");
-};
-exports.comment_update_get = function (req, res) {
-    res.send("NOT IMPLEMENTED: comment update GET");
 };
 exports.comment_update_post = function (req, res) {
     res.send("NOT IMPLEMENTED: comment update POST");

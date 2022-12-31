@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  if (user)
+  if user
     h1 Welcome back #{user.username}!
     a(href='/signout') Sign Out
   else
@@ -15,4 +15,21 @@ block content
     ul
       for error in errors
         li!= error.msg
+
+  div
+    if user
+      form(action='/comment/create' method='POST')
+        label(for='comment') Comment
+        input(name='comment' placeholder='' type='textarea')
+        button Add Comment
+    if comments
+      ul
+        for comment in comments
+          li
+            p #{comment.comment}
+            p #{comment.user.username}
+            p #{comment.date}
+            if (user && (user.username===comment.user.username || user.admin===true))
+              a(href=`comment/${comment._id}/update`) Edit
+              a(href=`comment/${comment._id}/delete`) Delete
 

@@ -1,23 +1,33 @@
 import { Request, Response, NextFunction } from "express";
+import { body, validationResult } from 'express-validator';
+import Comment from "../models/comment";
 
-exports.comment_create_get = (req: Request, res: Response) => {
-    res.send("NOT IMPLEMENTED: comment create GET");
-};
+exports.comment_create_post = [
+    body("comment", "Please enter a comment").trim().isLength({ min: 1 }).escape(),
 
-exports.comment_create_post = (req: Request, res: Response) => {
-    res.send("NOT IMPLEMENTED: comment create POST");
-};
+    (req: Request, res: Response, next: NextFunction) => {
+        const errors = validationResult(req);
 
-exports.comment_delete_get = (req: Request, res: Response) => {
-    res.send("NOT IMPLEMENTED: comment delete GET");
-};
+        if (!errors.isEmpty()) {
+            res.render("/", {errors: errors.array()})
+        } else {
+            const comment = new Comment({
+                comment: req.body.comment,
+                date: Date.now(),
+                user: res.locals.currentUser,
+            });
+            comment.save((err: Error) => {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect('/')
+            });
+        }
+    }
+];
 
 exports.comment_delete_post = (req: Request, res: Response) => {
     res.send("NOT IMPLEMENTED: comment delete POST");
-};
-
-exports.comment_update_get = (req: Request, res: Response) => {
-    res.send("NOT IMPLEMENTED: comment update GET");
 };
 
 exports.comment_update_post = (req: Request, res: Response) => {
