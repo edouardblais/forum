@@ -5,6 +5,37 @@ var passport = require("passport");
 var express_validator_1 = require("express-validator");
 var user_1 = require("../models/user");
 var async = require("async");
+var LocalStrategy = require("passport-local").Strategy;
+passport.use(new LocalStrategy(function verify(username, password, cb) {
+    user_1["default"].findOne({ username: username }, function (err, user) {
+        if (err) {
+            return cb(err);
+        }
+        if (!user) {
+            return cb(null, false, { message: "Incorrect username" });
+        }
+        bcrypt.compare(password, user.password, function (err, res) {
+            if (res) {
+                // passwords match! log user in
+                return cb(null, user);
+            }
+            else {
+                // passwords do not match!
+                return cb(null, false, { message: "Incorrect password" });
+            }
+        });
+    });
+}));
+passport.serializeUser(function (user, cb) {
+    process.nextTick(function () {
+        cb(null, user);
+    });
+});
+passport.deserializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, user);
+    });
+});
 exports.log_register_get = function (req, res) {
     res.render("signup");
 };
@@ -74,11 +105,8 @@ exports.log_register_post = [
 exports.log_signin_get = function (req, res) {
     res.render("signin");
 };
-exports.log_signin_post = function (req, res) {
-    passport.authenticate("local", {
-        failureRedirect: "/",
-        successMessage: "/"
-    });
+exports.log_signin_post = function (req, res, next) {
+    passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login', failureMessage: true })(req, res, next);
 };
 exports.log_signout_get = function (req, res, next) {
     req.logout(function (err) {

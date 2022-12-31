@@ -5,7 +5,41 @@ import { body, validationResult } from 'express-validator';
 import User from "../models/user";
 
 import * as async from 'async';
-import user from "../models/user";
+const LocalStrategy = require("passport-local").Strategy;
+
+passport.use(
+  new LocalStrategy(function verify(username: any, password: any, cb: any) {
+    User.findOne({ username: username }, (err: Error, user: any) => {
+      if (err) { 
+        return cb(err);
+      }
+      if (!user) {
+        return cb(null, false, { message: "Incorrect username" });
+      }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          // passwords match! log user in
+          return cb(null, user)
+        } else {
+          // passwords do not match!
+          return cb(null, false, { message: "Incorrect password" })
+        }
+      })
+    });
+  })
+);
+
+passport.serializeUser(function(user: any, cb) {
+  process.nextTick(function() {
+    cb(null, user);
+  });
+});
+
+passport.deserializeUser(function(user:any, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
+});
 
 exports.log_register_get = (req: Request, res: Response) => {
   res.render("signup");
@@ -82,11 +116,10 @@ exports.log_signin_get = (req: Request, res: Response) => {
     res.render("signin");
 };
 
-exports.log_signin_post = (req: Request, res: Response) => {
-    passport.authenticate("local", {
-      failureRedirect: "/",
-      successMessage: "/"
-    })
+exports.log_signin_post = (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate('local', 
+      { successReturnToOrRedirect: '/', failureRedirect: '/login', failureMessage: true }
+    )(req, res, next)
 };
 
 exports.log_signout_get = (req: Request, res: Response, next: NextFunction) => {
