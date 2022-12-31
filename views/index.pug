@@ -30,6 +30,6 @@ block content
             p #{comment.user.username}
             p #{comment.date}
             if (user && (user.username===comment.user.username || user.admin===true))
-              a(href=`comment/${comment._id}/update`) Edit
-              a(href=`comment/${comment._id}/delete`) Delete
+              form(method='post' action=`comment/${comment._id}/delete`)
+                button(type='submit') Delete
 

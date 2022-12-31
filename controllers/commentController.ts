@@ -26,10 +26,12 @@ exports.comment_create_post = [
     }
 ];
 
-exports.comment_delete_post = (req: Request, res: Response) => {
-    res.send("NOT IMPLEMENTED: comment delete POST");
+exports.comment_delete_post = (req: Request, res: Response, next: NextFunction) => {
+    Comment.findByIdAndRemove(req.params.id, (err:Error) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/");
+      });
 };
 
-exports.comment_update_post = (req: Request, res: Response) => {
-    res.send("NOT IMPLEMENTED: comment update POST");
-};

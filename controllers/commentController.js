@@ -24,9 +24,11 @@ exports.comment_create_post = [
         }
     }
 ];
-exports.comment_delete_post = function (req, res) {
-    res.send("NOT IMPLEMENTED: comment delete POST");
-};
-exports.comment_update_post = function (req, res) {
-    res.send("NOT IMPLEMENTED: comment update POST");
+exports.comment_delete_post = function (req, res, next) {
+    comment_1["default"].findByIdAndRemove(req.params.id.toString(), function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
+    });
 };
