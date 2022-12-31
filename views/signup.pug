@@ -12,3 +12,8 @@ block content
     label(for='confirmpassword') Confirm Password
     input(name='confirmpassword' type='password')
     button Register
+  
+  if errors
+    ul
+      for error in errors
+        li!= error

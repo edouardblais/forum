@@ -10,4 +10,9 @@ block content
     a(href='/signin') Sign In
     h1 New here?
     a(href='/register') Register
+  
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
 

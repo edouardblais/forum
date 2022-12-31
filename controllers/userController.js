@@ -80,7 +80,7 @@ exports.log_register_post = [
                     },
                     // Check if User with same username already exists.
                     username: function (callback) {
-                        user_1["default"].findOne({ name: user.username }).exec(callback);
+                        user_1["default"].findOne({ username: user.username }).exec(callback);
                     }
                 }, function (err, results) {
                     if (err) {
@@ -112,7 +112,7 @@ exports.log_signin_get = function (req, res) {
     res.render("signin");
 };
 exports.log_signin_post = function (req, res, next) {
-    passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login', failureMessage: true })(req, res, next);
+    passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/', failureMessage: true })(req, res, next);
 };
 exports.log_signout_get = function (req, res, next) {
     req.logout(function (err) {

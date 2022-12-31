@@ -96,7 +96,7 @@ exports.log_register_post = [
             },
             // Check if User with same username already exists.
             username(callback: any) {
-              User.findOne({ name: user.username}).exec(callback);
+              User.findOne({ username: user.username}).exec(callback);
             }
           },
             (err: Error, results: any ) => {
@@ -128,7 +128,7 @@ exports.log_signin_get = (req: Request, res: Response) => {
 
 exports.log_signin_post = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('local', 
-      { successReturnToOrRedirect: '/', failureRedirect: '/login', failureMessage: true }
+      { successReturnToOrRedirect: '/', failureRedirect: '/', failureMessage: true }
     )(req, res, next)
 };
 
