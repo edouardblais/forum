@@ -25,7 +25,7 @@ exports.comment_create_post = [
     }
 ];
 exports.comment_delete_post = function (req, res, next) {
-    comment_1["default"].findByIdAndRemove(req.params.id.toString(), function (err) {
+    comment_1["default"].findByIdAndRemove(req.params.id, function (err) {
         if (err) {
             return next(err);
         }

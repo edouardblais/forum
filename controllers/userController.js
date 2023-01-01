@@ -125,7 +125,15 @@ exports.log_signin_get = function (req, res) {
     res.render("signin");
 };
 exports.log_signin_post = function (req, res, next) {
-    passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/', failureMessage: true })(req, res, next);
+    passport.authenticate('local', function (err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.render('signin', { error: info.message });
+        }
+        res.render('index', { user: user });
+    })(req, res, next);
 };
 exports.log_signout_get = function (req, res, next) {
     req.logout(function (err) {

@@ -142,8 +142,13 @@ exports.log_signin_get = (req: Request, res: Response) => {
 
 exports.log_signin_post = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('local', 
-      { successReturnToOrRedirect: '/', failureRedirect: '/', failureMessage: true }
-    )(req, res, next)
+      function(err, user, info) {
+        if (err) { return next(err) }
+        if (!user) {
+          return res.render('signin', { error: info.message })
+        }
+        res.render('index', {user:user});
+      })(req, res, next);
 };
 
 exports.log_signout_get = (req: Request, res: Response, next: NextFunction) => {
