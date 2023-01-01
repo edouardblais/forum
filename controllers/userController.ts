@@ -147,7 +147,10 @@ exports.log_signin_post = (req: Request, res: Response, next: NextFunction) => {
         if (!user) {
           return res.render('signin', { error: info.message })
         }
-        res.render('index', {user:user});
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.redirect('/');
+        })
       })(req, res, next);
 };
 

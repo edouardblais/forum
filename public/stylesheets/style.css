@@ -2,11 +2,18 @@ body {
   height: 100vh;
 }
 
-.nav-link:hover {
-  color:#f97316 !important;
+.main-title {
+  color:white !important;
+  font-size: 2rem;
+  font-weight: 400;
 }
 
-.main-title-color {
-  color:#f97316 !important;
+.main-title:hover {
+  color:#e2e8f0 !important;
+  text-decoration: none;
+}
+
+.gap-dot2rem {
+  gap:.2rem;
 }
 

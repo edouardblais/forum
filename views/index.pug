@@ -2,14 +2,16 @@ extends layout
 
 block content
   if user
-    h1 Welcome back #{user.username}!
-    a(href='/signout') Sign Out
+    div(class='container-fluid d-flex flex-column justify-content-center align-items-center gap-dot2rem')
+      h1(class='m-0') Welcome back #{user.username}!
+      a(href='/signout') Sign Out
   else
-    h1 Welcome!
-    h3 Sign in to contribute to the forum
-    a(href='/signin') Sign In
-    h1 New here?
-    a(href='/register') Register
+    div(class='container-fluid d-flex flex-column justify-content-center align-items-center gap-dot2rem')
+      h1(class='m-0') Welcome!
+      h5(class='m-0') Sign in to contribute to the forum
+      a(href='/signin' class='m-0') Sign In
+      h3(class='m-0') New here?
+      a(href='/register' class='m-0') Register
   
   if errors
     ul

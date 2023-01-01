@@ -28,6 +28,7 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
