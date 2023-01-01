@@ -62,7 +62,7 @@ exports.log_register_post = [
     (0, express_validator_1.body)("username", "Username required").trim().isLength({ min: 1 }).escape(),
     (0, express_validator_1.body)('email', 'Email required').isEmail().normalizeEmail(),
     (0, express_validator_1.body)('password', 'Password of minimally 8 characters required').trim().isLength({ min: 8 }).escape(),
-    (0, express_validator_1.body)('confirmpassword', 'Password must be the same as above').custom(function (value, _a) {
+    (0, express_validator_1.body)('confirmpassword', 'Passwords are not identical').custom(function (value, _a) {
         var req = _a.req;
         return value === req.body.password;
     }),
@@ -100,12 +100,12 @@ exports.log_register_post = [
                         return next(err);
                     }
                     if (results.useremail) {
-                        // username already exists.
-                        res.render("signup", { errors: ['A user with the same email already exists!'] });
+                        // useremail already exists.
+                        res.render("signup", { errors: [{ msg: 'A user with the same email already exists!' }] });
                     }
                     else if (results.username) {
                         // username already exists.
-                        res.render("signup", { errors: ['A user with the same username already exists!'] });
+                        res.render("signup", { errors: [{ msg: 'A user with the same username already exists!' }] });
                     }
                     else {
                         user.save(function (err) {
