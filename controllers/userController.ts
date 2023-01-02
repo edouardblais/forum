@@ -4,6 +4,7 @@ import * as passport from "passport";
 import { body, validationResult } from 'express-validator';
 import User from "../models/user";
 import Comment from "../models/comment";
+import { formatDistanceToNow, parseJSON }from 'date-fns'
 
 import * as async from 'async';
 const LocalStrategy = require("passport-local").Strategy;
@@ -48,15 +49,23 @@ passport.deserializeUser(function(user:any, cb) {
 
 exports.index = (req: Request, res: Response) => {
   Comment.find({})
-    .sort({date:1})
+    .sort({_id: -1})
     .populate("user")
-    .exec(function(err:Error, comments_list: string[], next: NextFunction) {
+    .exec(function(err:Error, comments_list: any, next: NextFunction) {
       if (err) {
         return next(err);
       }
+      const updated_comments_list = comments_list.map((comment:any) => {
+        const newdate = formatDistanceToNow(parseJSON(comment.date));
+        return comment = {
+          comment: comment.comment,
+          date: newdate,
+          user: comment.user
+        };
+      })
       res.render("index", {
         error: err,
-        comments: comments_list,
+        comments: updated_comments_list,
         user: res.locals.currentUser,
       });
     }

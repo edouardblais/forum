@@ -17,3 +17,16 @@ body {
   gap:.2rem;
 }
 
+.gap-1rem {
+  gap:1rem;
+}
+
+.lb-font {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.comment-info-font {
+  font-weight: bold;
+}
+

@@ -18,20 +18,22 @@ block content
       for error in errors
         li!= error.msg
 
-  div
+  div(class='container-fluid d-flex flex-column gap-1rem')
     if user
-      form(action='/comment/create' method='POST')
-        label(for='comment') Comment
-        input(name='comment' placeholder='' type='textarea')
-        button Add Comment
+      form(action='/comment/create' method='POST' class='form-floating gx-1 mb-3')
+        label(for='comment' class='form-label p-1 m-0 lb-font') Talk to us!
+        textarea(name='comment' placeholder='' type='text' class='form-control m-1')
+        button(class="btn btn-primary m-1") Add Comment
     if comments
-      ul
+      ul(class='list-unstyled d-flex flex-column gap-1rem')
         for comment in comments
-          li
-            p #{comment.comment}
-            p #{comment.user.username}
-            p #{comment.date}
-            if (user && (user.username===comment.user.username || user.admin===true))
-              form(method='post' action=`comment/${comment._id}/delete`)
-                button(type='submit') Delete
+          li(class="border border-primary rounded pt-2 px-2 d-flex flex-column gap-dot2rem")
+            div
+              p(class='m-0') #{comment.comment}
+            div(class='d-flex flex-row justify-content-end align-items-center gap-1rem')
+              p(class='m-0 comment-info-font') #{comment.user.username}
+              p(class='m-0') #{comment.date} ago
+              if (user && (user.username===comment.user.username || user.admin===true))
+                form(method='post' action=`comment/${comment._id}/delete`)
+                  button(type='submit' class="btn btn-primary m-1") Delete
 

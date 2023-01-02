@@ -5,6 +5,7 @@ var passport = require("passport");
 var express_validator_1 = require("express-validator");
 var user_1 = require("../models/user");
 var comment_1 = require("../models/comment");
+var date_fns_1 = require("date-fns");
 var async = require("async");
 var LocalStrategy = require("passport-local").Strategy;
 // Passport functions for authentification controllers
@@ -41,15 +42,23 @@ passport.deserializeUser(function (user, cb) {
 // home controller
 exports.index = function (req, res) {
     comment_1["default"].find({})
-        .sort({ date: 1 })
+        .sort({ _id: -1 })
         .populate("user")
         .exec(function (err, comments_list, next) {
         if (err) {
             return next(err);
         }
+        var updated_comments_list = comments_list.map(function (comment) {
+            var newdate = (0, date_fns_1.formatDistanceToNow)((0, date_fns_1.parseJSON)(comment.date));
+            return comment = {
+                comment: comment.comment,
+                date: newdate,
+                user: comment.user
+            };
+        });
         res.render("index", {
             error: err,
-            comments: comments_list,
+            comments: updated_comments_list,
             user: res.locals.currentUser
         });
     });

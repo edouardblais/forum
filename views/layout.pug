@@ -9,8 +9,8 @@ html(lang='en')
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js", integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV", crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    div(class='container-fluid h-100 p-0')
+    div(class='container-fluid h-100 p-0 d-flex flex-column')
       nav(class='navbar navbar-expand navbar-dark bg-primary')
         a(href='/' class=' m-0 main-title') The World's Biggest Forum
-      div(class='row-sm-10 p-3 bg-light h-100')
+      div(class='p-3 bg-light flex-grow-1 d-flex flex-column gap-1rem')
         block content
