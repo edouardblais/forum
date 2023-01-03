@@ -1,13 +1,13 @@
 extends layout
 
 block content
-  h1 Sign in!
-  form(action='/signin' method='POST')
-    label(for='username') Username
-    input(name='username' placeholder='username' type='text')
-    label(for='password') Password
-    input(name='password' type='password')
-    button Sign In
+  h1 Sign in to contribute to the World's Biggest Forum!
+  form(action='/signin' method='POST' class='form-floating gx-1 mb-3')
+    label(for='username' class='form-label p-1 m-0 lb-font') Username
+    input(name='username' placeholder='Please enter your username' type='text' class='form-control m-1')
+    label(for='password' class='form-label p-1 m-0 lb-font') Password
+    input(name='password' type='password' placeholder='Please enter your password' class='form-control m-1')
+    button(class="btn btn-primary m-1") Sign In
 
   if error
     p= error

@@ -1,17 +1,17 @@
 extends layout
 
 block content
-  h1 Register!
-  form(action='/register' method='POST')
-    label(for='username') Username
-    input(name='username' placeholder='username' type='text')
-    label(for='email') Email
-    input(name='email' placeholder='email' type='email')
-    label(for='password') Password
-    input(name='password' type='password')
-    label(for='confirmpassword') Confirm Password
-    input(name='confirmpassword' type='password')
-    button Register
+  h1 Register to join the World's Biggest Forum!
+  form(action='/register' method='POST' class='form-floating gx-1 mb-3')
+    label(for='username' class='form-label p-1 m-0 lb-font') Username
+    input(name='username' placeholder='Please enter your username' type='text' class='form-control m-1')
+    label(for='email' class='form-label p-1 m-0 lb-font') Email
+    input(name='email' placeholder='Please enter your email' type='email' class='form-control m-1')
+    label(for='password' class='form-label p-1 m-0 lb-font') Password
+    input(name='password' type='password' placeholder='Please choose a password of 8 characters minimum' class='form-control m-1')
+    label(for='confirmpassword' class='form-label p-1 m-0 lb-font') Confirm Password
+    input(name='confirmpassword' type='password' placeholder='Please confirm your password' class='form-control m-1')
+    button(class="btn btn-primary m-1") Register
   
   if errors
     ul
