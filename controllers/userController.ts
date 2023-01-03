@@ -4,7 +4,7 @@ import * as passport from "passport";
 import { body, validationResult } from 'express-validator';
 import User from "../models/user";
 import Comment from "../models/comment";
-import { formatDistanceToNow, parseJSON }from 'date-fns'
+import { formatDistanceToNow, parseJSON, format }from 'date-fns'
 
 import * as async from 'async';
 const LocalStrategy = require("passport-local").Strategy;
@@ -57,10 +57,14 @@ exports.index = (req: Request, res: Response) => {
       }
       const updated_comments_list = comments_list.map((comment:any) => {
         const newdate = formatDistanceToNow(parseJSON(comment.date));
+        const newjoineddate = format(parseJSON(comment.user.member_since), 'PPP')
         return comment = {
           comment: comment.comment,
           date: newdate,
-          user: comment.user
+          user: {
+            username: comment.user.username,
+            member_since: newjoineddate,
+          }
         };
       })
       res.render("index", {

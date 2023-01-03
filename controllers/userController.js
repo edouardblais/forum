@@ -50,10 +50,14 @@ exports.index = function (req, res) {
         }
         var updated_comments_list = comments_list.map(function (comment) {
             var newdate = (0, date_fns_1.formatDistanceToNow)((0, date_fns_1.parseJSON)(comment.date));
+            var newjoineddate = (0, date_fns_1.format)((0, date_fns_1.parseJSON)(comment.user.member_since), 'PPP');
             return comment = {
                 comment: comment.comment,
                 date: newdate,
-                user: comment.user
+                user: {
+                    username: comment.user.username,
+                    member_since: newjoineddate
+                }
             };
         });
         res.render("index", {
