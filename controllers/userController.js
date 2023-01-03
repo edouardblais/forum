@@ -53,6 +53,7 @@ exports.index = function (req, res) {
             var newjoineddate = (0, date_fns_1.format)((0, date_fns_1.parseJSON)(comment.user.member_since), 'PPP');
             return comment = {
                 comment: comment.comment,
+                _id: comment._id,
                 date: newdate,
                 user: {
                     username: comment.user.username,

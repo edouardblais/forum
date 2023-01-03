@@ -60,6 +60,7 @@ exports.index = (req: Request, res: Response) => {
         const newjoineddate = format(parseJSON(comment.user.member_since), 'PPP')
         return comment = {
           comment: comment.comment,
+          _id: comment._id,
           date: newdate,
           user: {
             username: comment.user.username,

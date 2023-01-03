@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator';
 import Comment from "../models/comment";
 
 exports.comment_create_post = [
-    body("comment", "Please enter a comment").trim().isLength({ min: 1 }).escape(),
+    body("comment", "Please enter a comment").trim().isLength({ min: 1 }),
 
     (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req);

@@ -3,7 +3,7 @@ exports.__esModule = true;
 var express_validator_1 = require("express-validator");
 var comment_1 = require("../models/comment");
 exports.comment_create_post = [
-    (0, express_validator_1.body)("comment", "Please enter a comment").trim().isLength({ min: 1 }).escape(),
+    (0, express_validator_1.body)("comment", "Please enter a comment").trim().isLength({ min: 1 }),
     function (req, res, next) {
         var errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
