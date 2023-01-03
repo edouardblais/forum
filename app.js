@@ -5,12 +5,16 @@ const session = require("express-session");
 const passport = require("passport");
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const compression = require("compression");
+const helmet = require("helmet");
 
 require('dotenv').config();
 
 var forumRouter = require('./routes/forum');
 
 var app = express();
+
+app.use(helmet());
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -38,6 +42,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression()); 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', forumRouter);
