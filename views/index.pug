@@ -3,14 +3,14 @@ extends layout
 block content
   if user
     div(class='container-fluid d-flex flex-column justify-content-center align-items-center gap-dot2rem')
-      h1(class='m-0') Welcome back #{user.username}!
+      h1(class='m-0 text-center') Welcome back #{user.username}!
       a(href='/signout') Sign Out
   else
     div(class='container-fluid d-flex flex-column justify-content-center align-items-center gap-dot2rem')
-      h1(class='m-0') Welcome!
-      h5(class='m-0') Sign in to contribute to the forum
+      h1(class='m-0 text-center') Welcome!
+      h5(class='m-0 text-center') Sign in to contribute to the forum
       a(href='/signin' class='m-0') Sign In
-      h3(class='m-0') New here?
+      h3(class='m-0 text-center') New here?
       a(href='/register' class='m-0') Register
   
   if errors

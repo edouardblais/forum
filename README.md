@@ -5,7 +5,7 @@ Welcome to the World's Greatest Forum!
 Okay we're not there yet but maybe someday.
 Browse the conversation and contribute by simply creating a user!
 
-Take a look here: forum-production-50e7.up.railway.app 
+Take a look [here!](https://forum-production-50e7.up.railway.app)
 
 # Techno
 
