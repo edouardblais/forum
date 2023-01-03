@@ -34,3 +34,14 @@ body {
   width: 60vw;
 }
 
+@media (max-width:600px) {
+  .phonedisplay {
+    flex-direction: column !important;
+    gap:.2rem;
+    text-align: center;
+  }
+  html {
+    font-size: 12px;
+  }
+}
+

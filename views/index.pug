@@ -28,7 +28,7 @@ block content
       ul(class='list-unstyled d-flex flex-column gap-1rem forum-container-width')
         for comment in comments
           li(class="border border-primary rounded p-3 d-flex flex-column gap-1rem")
-            div(class='d-flex flex-row justify-content-start align-items-center gap-1rem')
+            div(class='d-flex flex-row justify-content-start align-items-center gap-1rem phonedisplay')
               p(class='m-0 comment-info-font text-primary') #{comment.user.username}
               p(class='m-0 comment-info-font') #{comment.date} ago
               p(class='m-0') Joined #{comment.user.member_since}
